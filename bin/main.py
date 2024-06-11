@@ -6,8 +6,8 @@ import json
 import time
 import keelson
 from terminal_inputs import terminal_inputs
-import numpy
 import socket   
+import keelson.payloads.TimestampedBytes_pb2 as TimestampedBytes
 
 session = None
 args = None
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         subject="raw",  # Needs to be a supported subject
         source_id=args.source_id,
     )
-    pub_camera = session.declare_publisher(
+    pub_raw = session.declare_publisher(
         key_exp_pub_raw,
         priority=zenoh.Priority.INTERACTIVE_HIGH(),
         congestion_control=zenoh.CongestionControl.DROP(),
@@ -73,25 +73,17 @@ if __name__ == "__main__":
             logging.debug(f'Received data from {addr}: {data}')
 
           
-            if "raw" in args.send:
-                logging.debug("Send RAW message...")
-       
-            #     payload = RawImage()
-            #     payload.timestamp.FromNanoseconds(ingress_timestamp)
-            #     if args.frame_id is not None:
-            #         payload.frame_id = args.frame_id
-            #     payload.width = width
-            #     payload.height = height
-            #     payload.encoding = "bgr8"  # Default in OpenCV
-            #     payload.step = width_step
-            #     payload.data = data
+            if "raw" in args.publish:
+                logging.debug("Publish RAW message...")
+                payload = TimestampedBytes()
+                payload.timestamp.FromNanoseconds(ingress_timestamp)
+                payload.data = data
+                serialized_payload = payload.SerializeToString()
+                envelope = keelson.enclose(serialized_payload)
+                pub_raw.put(envelope)
+                logging.debug(f"...published on {key_exp_pub_raw}")
 
-            #     serialized_payload = payload.SerializeToString()
-            #     envelope = keelson.enclose(serialized_payload)
-            #     raw_publisher.put(envelope)
-            #     logging.debug(f"...published on {raw_key}")
 
-            # supported_formats = ["jpeg", "webp", "png"]
 
             # if args.send in supported_formats:
             #     logging.debug(f"SEND {args.send} frame...")
@@ -122,5 +114,6 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         logging.info("Closing down on user request!")
-
+        # Close the socket
+        udp_socket.close()
         logging.debug("Done! Good bye :)")
