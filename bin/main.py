@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 logging.debug("Publish RAW message...")
                 payload = TimestampedBytes()
                 payload.timestamp.FromNanoseconds(ingress_timestamp)
-                payload.data = data
+                payload.bytes = data
                 serialized_payload = payload.SerializeToString()
                 envelope = keelson.enclose(serialized_payload)
                 pub_raw.put(envelope)
