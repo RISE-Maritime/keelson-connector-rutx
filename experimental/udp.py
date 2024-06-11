@@ -4,7 +4,7 @@ import socket
 udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Bind the socket to a specific address and port
-udp_socket.bind(('localhost', 5800))
+udp_socket.bind(('198.168.1.1', 5800))
 
 # Listen for incoming UDP packets
 while True:
