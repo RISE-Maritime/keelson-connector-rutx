@@ -5,7 +5,7 @@ def terminal_inputs():
     """Parse the terminal inputs and return the arguments"""
 
     parser = argparse.ArgumentParser(
-        prog="cam_connect",
+        prog="keelson_connector_rutx",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
@@ -38,17 +38,11 @@ def terminal_inputs():
     parser.add_argument("-s", "--source-id", type=str, required=False)
 
     parser.add_argument(
-        "-c",
-        "--camera",
-        type=str,
-        help="Device or URL to camera anything supported by VidGear",
-    )
-
-    parser.add_argument(
-        "--send",
-        choices=["raw", "webp", "jpeg", "png"],
+        "--publish",
+        choices=["raw", "processed"],
         type=str,
         required=False,
+        action="append",
     )
 
     parser.add_argument("-f", "--frame-id", type=str, default=None, required=False)

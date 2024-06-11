@@ -1,19 +1,21 @@
 # Keelson Connector Teltonika RUTX
 
+Keelson connector for Teltonika RUTX devices
 
-
-https://wiki.teltonika-networks.com/view/Software_Development_Kit
- 
-
-TODO:
-
-Keelson processor for creating an realtime panorama image based on multiple camera sensors 
+- NMEA
+- Parsed positional data
 
 ## Quick start
 
 ```bash
-python3 bin/main.py --log-level 10 -r rise -e boatswain -s axis-1 --camera rtsp://root:prepare@10.10.20.2/axis-media/media.amp?camera=1 --send jpeg
+python3 bin/main.py --log-level 10 -r rise -e boatswain -s rutx --publish raw --publish processed
 ```
+
+
+TODO:
+
+
+https://wiki.teltonika-networks.com/view/Software_Development_Kit
 
 
 
