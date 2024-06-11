@@ -7,7 +7,7 @@ import time
 import keelson
 from terminal_inputs import terminal_inputs
 import socket   
-import keelson.payloads.TimestampedBytes_pb2 as TimestampedBytes
+from keelson.payloads.TimestampedBytes_pb2 import TimestampedBytes
 
 session = None
 args = None
