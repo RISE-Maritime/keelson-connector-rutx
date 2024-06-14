@@ -13,7 +13,6 @@ session = None
 args = None
 
 
-
 if __name__ == "__main__":
     # Input arguments and configurations
     args = terminal_inputs()
