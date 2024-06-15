@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 pub_raw.put(envelope)
                 logging.debug(f"...published on {key_exp_pub_raw}")
 
-            elif "raw_string" in args.publish:
+            if "raw_string" in args.publish:
                 logging.debug("Publish RAW STRING message...")
                 payload = TimestampedString()
                 payload.timestamp.FromNanoseconds(ingress_timestamp)
@@ -104,7 +104,7 @@ if __name__ == "__main__":
                 pub_raw_str.put(envelope)
                 logging.debug(f"...published on {key_exp_pub_raw_str}")
             
-            elif "log" in args.publish:
+            if "log" in args.publish:
                 logging.debug("Publish LOG message...")
                 payload = Log()
                 payload.timestamp.FromNanoseconds(ingress_timestamp)
