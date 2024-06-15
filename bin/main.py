@@ -69,6 +69,20 @@ if __name__ == "__main__":
     )
     logging.info(f"Created publisher: {key_exp_pub_raw_str}")
 
+    # LOG NMEA publisher
+    key_exp_pub_log = keelson.construct_pub_sub_key(
+        realm=args.realm,
+        entity_id=args.entity_id,
+        subject="log",  # Needs to be a supported subject
+        source_id=args.source_id,
+    )
+    pub_log = session.declare_publisher(
+        key_exp_pub_log,
+        priority=zenoh.Priority.INTERACTIVE_HIGH(),
+        congestion_control=zenoh.CongestionControl.DROP(),
+    )
+    logging.info(f"Created publisher: {key_exp_pub_log}")
+
     try:
 
         # Create a UDP socket
@@ -115,7 +129,7 @@ if __name__ == "__main__":
                 payload.line = 107
                 serialized_payload = payload.SerializeToString()
                 envelope = keelson.enclose(serialized_payload)
-                pub_raw_str.put(envelope)
+                pub_log.put(envelope)
                 logging.debug(f"...published on {key_exp_pub_raw_str}")
 
    
