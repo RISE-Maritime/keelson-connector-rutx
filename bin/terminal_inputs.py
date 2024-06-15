@@ -38,7 +38,7 @@ def terminal_inputs():
     parser.add_argument("-s", "--source-id", type=str, required=False)
 
     parser.add_argument(
-        "--upd-port",
+        "--udp-port",
         type=int,
         required=True,
         default=8500,
