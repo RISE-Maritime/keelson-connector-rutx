@@ -8,6 +8,8 @@ import keelson
 from terminal_inputs import terminal_inputs
 import socket   
 from keelson.payloads.TimestampedBytes_pb2 import TimestampedBytes
+from keelson.payloads.TimestampedString_pb2 import TimestampedString
+from keelson.payloads.Log_pb2 import Log
 
 session = None
 args = None
@@ -92,16 +94,29 @@ if __name__ == "__main__":
                 pub_raw.put(envelope)
                 logging.debug(f"...published on {key_exp_pub_raw}")
 
-            if "raw_string" in args.publish:
+            elif "raw_string" in args.publish:
                 logging.debug("Publish RAW STRING message...")
-                payload = TimestampedBytes()
+                payload = TimestampedString()
                 payload.timestamp.FromNanoseconds(ingress_timestamp)
                 payload.value = data
                 serialized_payload = payload.SerializeToString()
                 envelope = keelson.enclose(serialized_payload)
                 pub_raw_str.put(envelope)
                 logging.debug(f"...published on {key_exp_pub_raw_str}")
-
+            
+            elif "log" in args.publish:
+                logging.debug("Publish LOG message...")
+                payload = Log()
+                payload.timestamp.FromNanoseconds(ingress_timestamp)
+                payload.level = Log.Level.INFO
+                payload.message = f"Received data from UDP socket. {data}"
+                payload.name = "INFO_UDP_SOCKET"
+                payload.file = "main.py"
+                payload.line = 107
+                serialized_payload = payload.SerializeToString()
+                envelope = keelson.enclose(serialized_payload)
+                pub_raw_str.put(envelope)
+                logging.debug(f"...published on {key_exp_pub_raw_str}")
 
    
         # Close the socket

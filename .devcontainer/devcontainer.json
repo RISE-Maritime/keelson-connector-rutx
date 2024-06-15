@@ -9,7 +9,7 @@
 	},
 	"runArgs": [
 		"--network=host",
-    "--name=devcontainer-keelson-camera"
+    "--name=devcontainer-rutx"
 	],
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
