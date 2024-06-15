@@ -57,7 +57,7 @@ if __name__ == "__main__":
     key_exp_pub_raw_str = keelson.construct_pub_sub_key(
         realm=args.realm,
         entity_id=args.entity_id,
-        subject="raw_str",  # Needs to be a supported subject
+        subject="raw_string",  # Needs to be a supported subject
         source_id=args.source_id,
     )
     pub_raw_str= session.declare_publisher(
