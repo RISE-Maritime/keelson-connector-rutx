@@ -38,8 +38,16 @@ def terminal_inputs():
     parser.add_argument("-s", "--source-id", type=str, required=False)
 
     parser.add_argument(
+        "--upd-port",
+        type=int,
+        required=True,
+        default=8500,
+        help="UDP port to listen to for incoming NMEA data",
+    )
+
+    parser.add_argument(
         "--publish",
-        choices=["raw", "processed"],
+        choices=["raw", "raw_str"],
         type=str,
         required=False,
         action="append",

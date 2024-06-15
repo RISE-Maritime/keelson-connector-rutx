@@ -53,16 +53,27 @@ if __name__ == "__main__":
     )
     logging.info(f"Created publisher: {key_exp_pub_raw}")
 
+    # RAW STRING NMEA publisher
+    key_exp_pub_raw_str = keelson.construct_pub_sub_key(
+        realm=args.realm,
+        entity_id=args.entity_id,
+        subject="raw_str",  # Needs to be a supported subject
+        source_id=args.source_id,
+    )
+    pub_raw_str= session.declare_publisher(
+        key_exp_pub_raw_str,
+        priority=zenoh.Priority.INTERACTIVE_HIGH(),
+        congestion_control=zenoh.CongestionControl.DROP(),
+    )
+    logging.info(f"Created publisher: {key_exp_pub_raw_str}")
 
     try:
-
-
 
         # Create a UDP socket
         udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         # Bind the socket to a specific address and port
-        udp_socket.bind(('0.0.0.0', 8500))
+        udp_socket.bind(('0.0.0.0', args.upd_port))
 
         # Listen for incoming UDP packets
         while True:
@@ -71,7 +82,6 @@ if __name__ == "__main__":
 
             logging.debug(f'Received data from {addr}: {data}')
 
-          
             if "raw" in args.publish:
                 logging.debug("Publish RAW message...")
                 payload = TimestampedBytes()
@@ -82,28 +92,15 @@ if __name__ == "__main__":
                 pub_raw.put(envelope)
                 logging.debug(f"...published on {key_exp_pub_raw}")
 
-
-
-            # if args.send in supported_formats:
-            #     logging.debug(f"SEND {args.send} frame...")
-
-            #     _, compressed_img = cv2.imencode(  # pylint: disable=no-member
-            #         MCAP_TO_OPENCV_ENCODINGS[args.send], frame
-            #     )
-            #     compressed_img = numpy.asarray(compressed_img)
-            #     data = compressed_img.tobytes()
-
-            #     payload = CompressedImage()
-            #     if args.frame_id is not None:
-            #         payload.frame_id = args.frame_id
-            #     payload.data = data
-            #     payload.format = args.send
-
-            #     serialized_payload = payload.SerializeToString()
-            #     envelope = keelson.enclose(serialized_payload)
-            #     pub_camera.put(envelope)
-            #     logging.debug(f"...published on {key_exp_pub_camera}")
-
+            if "raw_string" in args.publish:
+                logging.debug("Publish RAW STRING message...")
+                payload = TimestampedBytes()
+                payload.timestamp.FromNanoseconds(ingress_timestamp)
+                payload.value = data
+                serialized_payload = payload.SerializeToString()
+                envelope = keelson.enclose(serialized_payload)
+                pub_raw_str.put(envelope)
+                logging.debug(f"...published on {key_exp_pub_raw_str}")
 
 
    
