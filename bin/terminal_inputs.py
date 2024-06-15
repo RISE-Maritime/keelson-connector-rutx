@@ -47,7 +47,7 @@ def terminal_inputs():
 
     parser.add_argument(
         "--publish",
-        choices=["raw", "raw_str"],
+        choices=["raw", "raw_string"],
         type=str,
         required=False,
         action="append",
