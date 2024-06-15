@@ -130,7 +130,7 @@ if __name__ == "__main__":
                 serialized_payload = payload.SerializeToString()
                 envelope = keelson.enclose(serialized_payload)
                 pub_log.put(envelope)
-                logging.debug(f"...published on {key_exp_pub_raw_str}")
+                logging.debug(f"...published on {key_exp_pub_log}")
 
    
         # Close the socket
