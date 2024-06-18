@@ -10,7 +10,7 @@ import socket
 from keelson.payloads.TimestampedBytes_pb2 import TimestampedBytes
 from keelson.payloads.TimestampedString_pb2 import TimestampedString
 from keelson.payloads.Log_pb2 import Log
-from keelson.payloads.NMEA_pb2 import NMEA
+from keelson.payloads.NMEA_pb2 import GNGNS
 import pynmea2
 
 
@@ -157,7 +157,7 @@ if __name__ == "__main__":
                     nmea_sentence = data.decode("utf-8")
                     if nmea_sentence.split(',')[0] != "$GNGNS":
                         nmea_data = pynmea2.parse(nmea_sentence)
-                        payload = NMEA()
+                        payload = GNGNS()
                         payload.timestamp.FromNanoseconds(ingress_timestamp)
                         payload.utc.FromDatetime(nmea_data.timestamp)
                         # Latitude 
