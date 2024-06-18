@@ -156,6 +156,7 @@ if __name__ == "__main__":
                 try:
                     nmea_sentence = data.decode("utf-8")
                     if nmea_sentence.split(',')[0] != "$GNGNS":
+                        logging.debug(f"Received NMEA sentence is not GNGNS: {nmea_sentence}")
                         nmea_data = pynmea2.parse(nmea_sentence)
                         payload = GNGNS()
                         payload.timestamp.FromNanoseconds(ingress_timestamp)
