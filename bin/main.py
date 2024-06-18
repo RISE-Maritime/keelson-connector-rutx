@@ -181,15 +181,8 @@ if __name__ == "__main__":
                         pub_log.put(envelope)
                         logging.debug(f"...published on {key_exp_pub_nmea_gngns}")
 
-
-
                 except Exception as e:
                     logging.error(f"Error parsing NMEA data: {e}")
-                    payload.value = data.decode("utf-8")
-                nmea_data = data.decode("utf-8")
-
-
-                payload.utc = "2"
 
    
         # Close the socket
