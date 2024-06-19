@@ -7,6 +7,7 @@ import time
 import keelson
 from terminal_inputs import terminal_inputs
 import socket   
+from datetime import datetime
 from keelson.payloads.TimestampedBytes_pb2 import TimestampedBytes
 from keelson.payloads.TimestampedString_pb2 import TimestampedString
 from keelson.payloads.Log_pb2 import Log
@@ -160,7 +161,15 @@ if __name__ == "__main__":
                         nmea_data = pynmea2.parse(nmea_sentence)
                         payload = GNGNS()
                         payload.timestamp.FromNanoseconds(ingress_timestamp)
-                        payload.utc.FromDatetime(nmea_data.timestamp)
+
+                        # Assuming nmea_data.timestamp is a datetime.time object
+                        time_obj = nmea_data.timestamp
+
+                        # Convert to datetime.datetime object
+                        datetime_obj = datetime.combine(datetime.today(), time_obj)
+
+                        # Now you can use datetime_obj
+                        payload.utc.FromDatetime(datetime_obj)
                         # Latitude 
                         if nmea_sentence.lat_dir == "S":
                             payload.latitude = float(-nmea_data.lat)
