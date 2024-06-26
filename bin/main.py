@@ -188,7 +188,7 @@ if __name__ == "__main__":
                         payload.geoid_height = float(nmea_data.geo_sep)
                         serialized_payload = payload.SerializeToString()
                         envelope = keelson.enclose(serialized_payload)
-                        pub_log.put(envelope)
+                        pub_nmea_gngns.put(envelope)
                         logging.debug(f"...published on {key_exp_pub_nmea_gngns}")
 
                 except Exception as e:
