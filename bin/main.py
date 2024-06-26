@@ -171,12 +171,12 @@ if __name__ == "__main__":
                         # Now you can use datetime_obj
                         payload.utc.FromDatetime(datetime_obj)
                         # Latitude 
-                        if nmea_sentence.lat_dir == "S":
+                        if nmea_data.lat_dir == "S":
                             payload.latitude = float(-nmea_data.lat)
                         else:
                             payload.latitude = float(nmea_data.lat)
                         # Longitude 
-                        if nmea_sentence.lon_dir == "W":
+                        if nmea_data.lon_dir == "W":
                             payload.longitude = float(-nmea_data.lon)
                         else:
                             payload.longitude = float(nmea_data.longitude)
