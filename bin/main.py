@@ -157,7 +157,7 @@ if __name__ == "__main__":
                 try:
                     nmea_sentence = data.decode("utf-8")
                     if nmea_sentence.split(',')[0] == "$GNGNS":
-                        logging.debug(f"Received NMEA sentence is not GNGNS: {nmea_sentence}")
+                        logging.debug(f"Received NMEA sentence GNGNS: {nmea_sentence}")
                         nmea_data = pynmea2.parse(nmea_sentence)
                         payload = GNGNS()
                         payload.timestamp.FromNanoseconds(ingress_timestamp)
@@ -172,12 +172,12 @@ if __name__ == "__main__":
                         payload.utc.FromDatetime(datetime_obj)
                         # Latitude 
                         if nmea_data.lat_dir == "S":
-                            payload.latitude = float(-nmea_data.lat)
+                            payload.latitude = float(-nmea_data.latitude)
                         else:
-                            payload.latitude = float(nmea_data.lat)
+                            payload.latitude = float(nmea_data.latitude)
                         # Longitude 
                         if nmea_data.lon_dir == "W":
-                            payload.longitude = float(-nmea_data.lon)
+                            payload.longitude = float(-nmea_data.longitude)
                         else:
                             payload.longitude = float(nmea_data.longitude)
 
