@@ -53,7 +53,6 @@ if __name__ == "__main__":
     )
     pub_raw = session.declare_publisher(
         key_exp_pub_raw,
-        priority=zenoh.Priority.INTERACTIVE_HIGH(),
         congestion_control=zenoh.CongestionControl.DROP(),
     )
     logging.info(f"Created publisher: {key_exp_pub_raw}")
@@ -67,7 +66,6 @@ if __name__ == "__main__":
     )
     pub_raw_str = session.declare_publisher(
         key_exp_pub_raw_str,
-        priority=zenoh.Priority.INTERACTIVE_HIGH(),
         congestion_control=zenoh.CongestionControl.DROP(),
     )
     logging.info(f"Created publisher: {key_exp_pub_raw_str}")
@@ -81,7 +79,6 @@ if __name__ == "__main__":
     )
     pub_log = session.declare_publisher(
         key_exp_pub_log,
-        priority=zenoh.Priority.INTERACTIVE_HIGH(),
         congestion_control=zenoh.CongestionControl.DROP(),
     )
     logging.info(f"Created publisher: {key_exp_pub_log}")
