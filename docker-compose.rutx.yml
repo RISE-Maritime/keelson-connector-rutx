@@ -1,7 +1,8 @@
 services:
 
-  camera-1:
+  rutx:
     build: .
+    # image: ghcr.io/rise-maritime/keelson-connector-rutx:latest
     container_name: keelson-connector-rutx
     restart: unless-stopped
     network_mode: "host"
