@@ -40,7 +40,6 @@ if __name__ == "__main__":
         session.close()
 
     atexit.register(_on_exit)
-    logging.info(f"Zenoh session established: {session.info()}")
 
     #################################################
     # Setting up PUBLISHER
