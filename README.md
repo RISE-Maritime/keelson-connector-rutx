@@ -9,6 +9,8 @@ Keelson connector for Teltonika RUTX devices
 
 ```bash
 python3 bin/main.py --log-level 10 -r rise -e boatswain -s rutx --publish raw_string --publish raw --publish log --publish nmea --udp-port 8500
+
+ python3 bin/main.py --log-level 10 -r rise -e landkrabba -s rutx --publish raw_string --publish geojson --udp-port 8500
 ```
 
 
