@@ -147,7 +147,7 @@ if __name__ == "__main__":
                         # Timestamp
                         nmea_msg_timestamp = nmea_data.timestamp
                         nmea_msg_timestamp_dt = datetime.combine(datetime.today(), nmea_msg_timestamp)
-                        payload_location.timestamp.FromNanoseconds(nmea_msg_timestamp_dt)
+                        payload_location.timestamp.FromDatetime(nmea_msg_timestamp_dt)
 
                         # Latitude
                         if nmea_data.lat_dir == "S":
@@ -170,7 +170,7 @@ if __name__ == "__main__":
 
                         # Satellites used
                         payload_sat_used = TimestampedInt()
-                        payload_sat_used.timestamp.FromNanoseconds(nmea_msg_timestamp_dt)
+                        payload_sat_used.timestamp.FromDatetime(nmea_msg_timestamp_dt)
                         payload_sat_used.value = int(nmea_data.num_sats)
                         serialized_payload = payload_sat_used.SerializeToString()
                         envelope = keelson.enclose(serialized_payload)
@@ -179,7 +179,7 @@ if __name__ == "__main__":
 
                         # HDOP
                         payload_hdop = TimestampedFloat()
-                        payload_hdop.timestamp.FromNanoseconds(nmea_msg_timestamp_dt)
+                        payload_hdop.timestamp.FromDatetime(nmea_msg_timestamp_dt)
                         payload_hdop.value = float(nmea_data.hdop)
                         serialized_payload = payload_hdop.SerializeToString()
                         envelope = keelson.enclose(serialized_payload)
@@ -193,7 +193,7 @@ if __name__ == "__main__":
                 if "raw" in args.publish:
                     logging.debug("Publish RAW message...")
                     payload = TimestampedBytes()
-                    payload.timestamp.FromNanoseconds(ingress_timestamp)
+                    payload.timestamp.FromDatetime(nmea_msg_timestamp_dt)
                     payload.value = data
                     serialized_payload = payload.SerializeToString()
                     envelope = keelson.enclose(serialized_payload)
