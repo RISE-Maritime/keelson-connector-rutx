@@ -35,27 +35,39 @@ def terminal_inputs():
         help="Entity being a unique id representing an entity within the realm ex, landkrabba",
     )
 
-    parser.add_argument("-s", "--source-id", type=str, required=False)
+    parser.add_argument(
+        "-s",
+        "--source-id",
+        default="rutx/0",
+        type=str,
+        required=False
+    )
 
     parser.add_argument(
         "--udp-port",
         type=int,
-        required=True,
+        required=False,
         default=8500,
         help="UDP port to listen to for incoming NMEA data",
     )
 
     parser.add_argument(
         "--publish",
-        choices=["raw", "raw_string", "log", "nmea", "geojson"],
+        choices=["raw", "geojson"],
         type=str,
         required=False,
         action="append",
     )
 
-    parser.add_argument("-f", "--frame-id", type=str, default=None, required=False)
+    parser.add_argument(
+        "-f", 
+        "--frame-id", 
+        type=str,
+        default=None, 
+        required=False
+    )
 
-    ## Parse arguments and start doing our thing
+    # Parse arguments and start doing our thing
     args = parser.parse_args()
 
     return args
