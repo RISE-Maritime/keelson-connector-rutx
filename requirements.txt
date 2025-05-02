@@ -2,3 +2,4 @@ environs==14.1.1
 protobuf
 keelson==0.4.0rc0
 pynmea2
+pytz
