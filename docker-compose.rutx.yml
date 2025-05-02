@@ -6,5 +6,5 @@ services:
     container_name: keelson-connector-rutx
     restart: unless-stopped
     network_mode: "host"
-    command: ["socat UDP4-RECV:8500,reuseaddr STDOUT | main --log-level 10 -r rise -e landkrabban -s rutx  --publish raw --udp-port 8500"]
+    command: ["socat UDP4-RECV:8500,reuseaddr STDOUT | main --log-level 10 -r rise -e ssrs18 -s rutx  --publish raw"]
     
