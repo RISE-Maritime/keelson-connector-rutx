@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
 
         try:
-            for line in sys.stdin:
+            for line in sys.stdin.buffer:
                 print(f"Py line: {line}")
 
                 ingress_timestamp = time.time_ns()
@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
                 # Parsing NMEA data
                 try:
-                    nmea_sentence = line
+                    nmea_sentence = line.decode("utf-8")
 
                     logging.debug(f"Received NMEA utf-8: {nmea_sentence}")
 
