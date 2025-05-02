@@ -8,12 +8,12 @@ import json
 import time
 import keelson
 from terminal_inputs import terminal_inputs
-import socket
 from datetime import datetime
 from keelson.payloads.Primitives_pb2 import TimestampedBytes, TimestampedInt, TimestampedFloat
 from keelson.payloads.foxglove.LocationFix_pb2 import LocationFix
 import pynmea2
 import sys
+import pytz
 
 session = None
 args = None
@@ -142,7 +142,7 @@ if __name__ == "__main__":
                         
                         # Timestamp
                         nmea_msg_timestamp = nmea_data.timestamp
-                        nmea_msg_timestamp_dt = datetime.combine(datetime.today(), nmea_msg_timestamp, tzinfo=datetime.timezone.utc)
+                        nmea_msg_timestamp_dt = datetime.combine(datetime.today(), nmea_msg_timestamp, tzinfo=pytz.utc)
                         logging.debug(f"Timestamp REC: {nmea_msg_timestamp_dt}")
                         payload_location.timestamp.FromDatetime(nmea_msg_timestamp_dt)
 
