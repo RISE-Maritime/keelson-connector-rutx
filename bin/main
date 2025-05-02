@@ -134,7 +134,7 @@ if __name__ == "__main__":
                     logging.debug(f"Received NMEA utf-8: {nmea_sentence}")
 
                     if nmea_sentence.split(",")[0] == "$GNGNS":
-                        logging.debug( "Received NMEA sentence GNGNS: {nmea_sentence}" )
+                        logging.debug( f"Received NMEA sentence GNGNS: {nmea_sentence}" )
                         nmea_data = pynmea2.parse(nmea_sentence)
 
                         # Create a LocationFix payload
@@ -190,8 +190,8 @@ if __name__ == "__main__":
                 if "raw" in args.publish:
                     logging.debug("Publish RAW message...")
                     payload = TimestampedBytes()
-                    payload.timestamp.FromDatetime(ingress_timestamp)
-                    payload.value = data
+                    payload.timestamp.FromNanoseconds(ingress_timestamp)
+                    payload.value = line
                     serialized_payload = payload.SerializeToString()
                     envelope = keelson.enclose(serialized_payload)
                     pub_raw.put(envelope)
