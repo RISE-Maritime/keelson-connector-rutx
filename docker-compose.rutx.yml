@@ -6,5 +6,5 @@ services:
     container_name: keelson-connector-rutx
     restart: unless-stopped
     network_mode: "host"
-    command: "main --help" # --log-level 10 -r rise -e landkrabban -s rutx  --publish raw --udp-port 8500"
+    command: ["main --help"] # --log-level 10 -r rise -e landkrabban -s rutx  --publish raw --udp-port 8500"
     
