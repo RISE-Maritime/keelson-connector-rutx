@@ -140,6 +140,7 @@ if __name__ == "__main__":
                         
                         # Timestamp
                         nmea_msg_timestamp = nmea_data.timestamp
+                        logging.debug(f"Timestamp NMEA: {nmea_msg_timestamp}")
                         nmea_msg_timestamp_dt = datetime.combine(datetime.today(), nmea_msg_timestamp)
                         payload_location.timestamp.FromDatetime(nmea_msg_timestamp_dt)
 
